@@ -12,6 +12,8 @@ public class Surowiec : MonoBehaviour
     private int resourceType;
     private int resourceAmmount;
 
+    // dodac zmienna z robotnica, ktora zbiera zasob
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,13 +27,15 @@ public class Surowiec : MonoBehaviour
     }
 
     public void SetExtractionTime(float time) => extractionTime = time;
-    public float GetExtractionTime()
-    {
-        return extractionTime;
-    }
+    public float GetExtractionTime() => extractionTime;
+
+    public bool GetIsUnderExtraction() => isUnderExtraction;
 
     public void Extract()
     {
+        if (isUnderExtraction)
+            return;
+
         extractCoroutine = ExtractCoroutine();
         isUnderExtraction = true;
         StartCoroutine(extractCoroutine);
@@ -43,8 +47,7 @@ public class Surowiec : MonoBehaviour
         {
             StopCoroutine(extractCoroutine);
             isUnderExtraction = false;
-        }
-        
+        }        
     }
 
     IEnumerator ExtractCoroutine()
@@ -57,5 +60,6 @@ public class Surowiec : MonoBehaviour
     private void ExtractionFinished()
     {
         Destroy(gameObject);
+        // dolozyc oddawanie surowcow jak bedzie kod jednostek (u robotnicy funkcja bedzie odpalona)
     }
 }
