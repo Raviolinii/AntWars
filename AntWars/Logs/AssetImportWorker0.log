@@ -136,3 +136,11 @@ Received Import Request.
 Start importing Assets using Guid(00000000000000001000000000000000) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '42d402b061de3733987d63b9cc3b64de') in 0.013653 seconds 
   Import took 0.018380 seconds .
 
+========================================================================
+Received Import Request.
+  Time since last request: 314.422746 seconds.
+  path: Assets/Sprites
+  artifactKey: Guid(02986e46785bb4e4da2c0b3fb755d372) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites using Guid(02986e46785bb4e4da2c0b3fb755d372) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a296f03b47f86439b152e6d60638344a') in 0.010850 seconds 
+  Import took 0.016404 seconds .
+
