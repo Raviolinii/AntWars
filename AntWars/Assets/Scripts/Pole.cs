@@ -5,17 +5,18 @@ using UnityEngine;
 public class Pole : MonoBehaviour
 {
     private Surowiec resource;
-    
+    private Feromon feromon;
 
     void start()
     {
-        if (resource != null)
-            SpawnResource();
+        SpawnResource();
     }
 
     private void SpawnResource()
     {
-        Instantiate(resource, gameObject.transform.position, resource.transform.rotation);
+        if (resource != null)
+            Instantiate(resource, gameObject.transform.position, resource.transform.rotation);
     }
+
 
 }
