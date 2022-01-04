@@ -18,12 +18,6 @@ public class Feromon : MonoBehaviour
         BeginFeromonVanishing();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public int GetFeromonuAmount() => amount;
     private void SetFeromonAmount(int value) => amount = value;
     public void AddFeromon(int value) => amount += value;
