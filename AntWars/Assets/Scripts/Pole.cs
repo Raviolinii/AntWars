@@ -4,20 +4,18 @@ using UnityEngine;
 
 public class Pole : MonoBehaviour
 {
-    public Surowiec resource;
-
-    // jak bedzie kod dla budynkow
-    //private Budynek budynek;
+    private Surowiec resource;
+    
 
     void start()
     {
-        SpawnResource();
+        if (resource != null)
+            SpawnResource();
     }
 
     private void SpawnResource()
     {
-        if (resource != null)
-            Instantiate(resource, gameObject.transform.position, resource.transform.rotation);
+        Instantiate(resource, gameObject.transform.position, resource.transform.rotation);
     }
 
 }
