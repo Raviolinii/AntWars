@@ -7,9 +7,6 @@ public class Surowiec : MonoBehaviour
     private float extractionTime;
     private IEnumerator extractCoroutine;
     private bool isUnderExtraction;
-
-    // 0 = ziemia, 1 = kamien, 2 = jedzenie
-    private int resourceType;
     private int resourceAmmount;
 
     // dodac zmienna z robotnica, ktora zbiera zasob
