@@ -6,8 +6,8 @@ public class Mapa : MonoBehaviour
 {
     private int width = 10;
     private int height = 10;
-    public GameObject pole; 
-    private GameObject[,] map;
+    public Pole tile; 
+    private Pole[,] map;
 
     // Start is called before the first frame update
     void Start()
@@ -23,24 +23,25 @@ public class Mapa : MonoBehaviour
 
     private void InstantiateMap()
     {
-        map = new GameObject[width, height];
+        map = new Pole[width, height];
         
         float positionX = 0;
         float positionY = 0;
-        Vector3 newPosition;
+        Vector3 newPosition;    
 
         for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
             {
                 // obliczanie pozycji dla kazdego pola, j jest na minusie, zeby pola szly w dol, zeby pole [0,0] bylo w lewym gornym rogu
-                positionX = pole.transform.localScale.x * i;
-                positionY = pole.transform.localScale.y * -j;
+                positionX = tile.transform.localScale.x * i;
+                positionY = tile.transform.localScale.y * -j;
                 newPosition = new Vector3(positionX, positionY, 0);
 
-                map[i,j] = Instantiate(pole, newPosition, pole.transform.rotation);
+                map[i,j] = Instantiate(tile, newPosition, tile.transform.rotation);
+                map[i,j].SetTileIndex(i, j);
             }
         }
     }
-    public GameObject[,] GetMap() => map;
+    public Pole[,] GetMap() => map;
 }
