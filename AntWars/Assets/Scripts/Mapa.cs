@@ -42,5 +42,5 @@ public class Mapa : MonoBehaviour
             }
         }
     }
-
+    public GameObject[,] GetMap() => map;
 }
