@@ -470,9 +470,9 @@ GameObject:
   - component: {fileID: 1749172413}
   - component: {fileID: 1749172412}
   - component: {fileID: 1749172411}
-  m_Layer: 0
-  m_Name: Square
-  m_TagString: Untagged
+  m_Layer: 6
+  m_Name: Tile
+  m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

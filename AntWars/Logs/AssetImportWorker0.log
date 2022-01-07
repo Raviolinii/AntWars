@@ -332,3 +332,27 @@ Stacktrace:
 
   Import took 25.965949 seconds .
 
+========================================================================
+Received Import Request.
+  Time since last request: 113.648589 seconds.
+  path: Assets/Prefabs/Ant.prefab
+  artifactKey: Guid(0a427d3323acd2344b174f577983c757) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ant.prefab using Guid(0a427d3323acd2344b174f577983c757) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c41ed0a5a09fa4db2d9b56066eaa55f2') in 0.036674 seconds 
+  Import took 0.042412 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 64.468569 seconds.
+  path: Assets/Scenes/SampleScene.unity
+  artifactKey: Guid(2cda990e2423bbf4892e6590ba056729) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/SampleScene.unity using Guid(2cda990e2423bbf4892e6590ba056729) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '87546ad22c537dce6f5f7c2195b899a5') in 0.011964 seconds 
+  Import took 0.017059 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 33.769492 seconds.
+  path: ProjectSettings/TagManager.asset
+  artifactKey: Guid(00000000000000003000000000000000) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing ProjectSettings/TagManager.asset using Guid(00000000000000003000000000000000) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '85c15f5877e9a195fc6490931c153b84') in 0.012638 seconds 
+  Import took 0.017429 seconds .
+
