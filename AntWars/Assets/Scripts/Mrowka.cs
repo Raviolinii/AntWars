@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Mrowka : MonoBehaviour
 {
-    private Vector2 spawnPosition = new Vector2(1,1);
+    private Vector2 spawnPosition = new Vector2(1, 1);
     private Vector2 currentPosition;
-    private GameObject[,] map;
+    private Pole[,] map;
     private Rigidbody2D rb;
     private CircleCollider2D tileDetector;
     private BoxCollider2D targetDetector;
@@ -17,21 +17,24 @@ public class Mrowka : MonoBehaviour
     {
         map = FindObjectOfType<Mapa>().GetMap();
         rb = GetComponent<Rigidbody2D>();
-        currentPosition = spawnPosition;
         tileDetector = GetComponentInChildren<CircleCollider2D>();
-
+        transform.position = map[(int)spawnPosition.x, (int)spawnPosition.y].transform.position;
+        currentPosition = spawnPosition;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    private void OnCollisionEnter(Collision other) {
+    private void OnTriggerEnter(Collider other)
+    {
         if (other.gameObject.CompareTag("Tile"))
-            {
-                // get tile number and update current position
-            }
+        {
+            Pole tile = other.GetComponent<Pole>();
+            currentPosition = tile.GetTileIndex();
+        }
     }
+
 }
