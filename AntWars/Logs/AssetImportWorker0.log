@@ -282,4 +282,53 @@ Received Import Request.
   Time since last request: 284.275603 seconds.
   path: Assets/Prefabs/Ant.prefab
   artifactKey: Guid(0a427d3323acd2344b174f577983c757) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Ant.prefab using Guid(0a427d3323acd2344b174f577983c757) Importer(815301076,1909f56bfc062723c751e8b465ee728b) 
+Start importing Assets/Prefabs/Ant.prefab using Guid(0a427d3323acd2344b174f577983c757) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 25.960577 seconds  code(4) message(Build asset version error: assets/prefabs/ant.prefab in SourceAssetDB has modification time of '2022-01-07T11:22:25.3921928Z' while content on disk has modification time of '0001-01-01T00:00:00Z' with error code 2
+Stacktrace:
+0x00007ff6d283809c (Unity) StackWalker::GetCurrentCallstack
+0x00007ff6d2840739 (Unity) StackWalker::ShowCallstack
+0x00007ff6d3d75eec (Unity) GetStacktrace
+0x00007ff6d3f59787 (Unity) GetAssetHashAndValidate
+0x00007ff6d3f54953 (Unity) AssetVersionBuilder::BuildHashOfSourceAssetArray
+0x00007ff6d3f528c2 (Unity) AssetVersionBuilder::BuildAssetVersion
+0x00007ff6d3f2cccd (Unity) CreateAssetVersionBuilder
+0x00007ff6d3f339dd (Unity) ImportToObjects
+0x00007ff6d3f327f8 (Unity) ImportAsset
+0x00007ff6d3e94408 (Unity) AssetImportWorker::Import
+0x00007ff6d3ee81fa (Unity) <lambda_bc460064e1fa47f4de661f7cf652321c>::operator()
+0x00007ff6d3f8bfc2 (Unity) asio::detail::completion_handler<core::mutable_function<void __cdecl(void)> >::do_complete
+0x00007ff6d3f8e120 (Unity) asio::detail::win_iocp_io_service::do_one
+0x00007ff6d3f918ae (Unity) asio::io_service::run
+0x00007ff6d3f1478b (Unity) RunAssetImportWorkerClientV2
+0x00007ff6d3f147e0 (Unity) RunAssetImporterV2
+0x00007ff6d33cc746 (Unity) Application::InitializeProject
+0x00007ff6d3d83452 (Unity) WinMain
+0x00007ff6d5b34416 (Unity) __scrt_common_main_seh
+0x00007ffab4c27034 (KERNEL32) BaseThreadInitThunk
+0x00007ffab5722651 (ntdll) RtlUserThreadStart
+)
+  ERROR: Build asset version error: assets/prefabs/ant.prefab in SourceAssetDB has modification time of '2022-01-07T11:22:25.3921928Z' while content on disk has modification time of '0001-01-01T00:00:00Z' with error code 2
+Stacktrace:
+0x00007ff6d283809c (Unity) StackWalker::GetCurrentCallstack
+0x00007ff6d2840739 (Unity) StackWalker::ShowCallstack
+0x00007ff6d3d75eec (Unity) GetStacktrace
+0x00007ff6d3f59787 (Unity) GetAssetHashAndValidate
+0x00007ff6d3f54953 (Unity) AssetVersionBuilder::BuildHashOfSourceAssetArray
+0x00007ff6d3f528c2 (Unity) AssetVersionBuilder::BuildAssetVersion
+0x00007ff6d3f2cccd (Unity) CreateAssetVersionBuilder
+0x00007ff6d3f339dd (Unity) ImportToObjects
+0x00007ff6d3f327f8 (Unity) ImportAsset
+0x00007ff6d3e94408 (Unity) AssetImportWorker::Import
+0x00007ff6d3ee81fa (Unity) <lambda_bc460064e1fa47f4de661f7cf652321c>::operator()
+0x00007ff6d3f8bfc2 (Unity) asio::detail::completion_handler<core::mutable_function<void __cdecl(void)> >::do_complete
+0x00007ff6d3f8e120 (Unity) asio::detail::win_iocp_io_service::do_one
+0x00007ff6d3f918ae (Unity) asio::io_service::run
+0x00007ff6d3f1478b (Unity) RunAssetImportWorkerClientV2
+0x00007ff6d3f147e0 (Unity) RunAssetImporterV2
+0x00007ff6d33cc746 (Unity) Application::InitializeProject
+0x00007ff6d3d83452 (Unity) WinMain
+0x00007ff6d5b34416 (Unity) __scrt_common_main_seh
+0x00007ffab4c27034 (KERNEL32) BaseThreadInitThunk
+0x00007ffab5722651 (ntdll) RtlUserThreadStart
+
+  Import took 25.965949 seconds .
+
