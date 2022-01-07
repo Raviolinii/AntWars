@@ -470,9 +470,9 @@ GameObject:
   - component: {fileID: 1749172413}
   - component: {fileID: 1749172412}
   - component: {fileID: 1749172411}
-  m_Layer: 0
-  m_Name: Square
-  m_TagString: Untagged
+  m_Layer: 6
+  m_Name: Tile
+  m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -486,7 +486,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1749172410}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 813157ab98d32e9479783d9c4f8da4cf, type: 3}
+  m_Script: {fileID: 11500000, guid: fa996d3a0e76ba34a9a5bde9b0d1efcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &1749172412
