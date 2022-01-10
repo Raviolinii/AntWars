@@ -6,7 +6,7 @@ using System.Linq;
 
 public class Mrowka : MonoBehaviour
 {
-    private Vector2Int spawnPosition = new Vector2Int(1, 1);
+    private Vector2Int spawnPosition = new Vector2Int(2, 2);
     private Vector2Int currentPosition;
     private Pole[,] map;
     private Rigidbody2D rb;
@@ -35,8 +35,8 @@ public class Mrowka : MonoBehaviour
 
         // end of that code, uncomment next line
         Invoke("TestPositionSet", 4);
-        Invoke("FeromonDetection", 5);
-        Invoke("Move", 6);
+        //Invoke("FeromonDetection", 5);
+        //Invoke("Move", 6);
         hasFood = false;
         surroundings = new int?[8];
     }
@@ -55,18 +55,26 @@ public class Mrowka : MonoBehaviour
         currentPosition = spawnPosition;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log(other.tag);
+        Debug.Log(gameObject.tag);
         if (other.gameObject.CompareTag("Tile"))
         {
             Pole tile = other.GetComponent<Pole>();
             currentPosition = tile.GetTileIndex();
 
             FeromonDetection();
+            StartCoroutine("WaitAMinute");
+                
         }
     }
 
+    IEnumerator WaitAMinute()
+    {
+        yield return new WaitForSeconds(0.2f);
+        Move();
+    }
     private void FeromonDetection()
     {
         // radius wont be changed, script will remain commented
@@ -100,7 +108,7 @@ public class Mrowka : MonoBehaviour
         {
             surroundings[index] = map[x, y].GetFeromon().GetFeromonAmount();
         }
-        catch (System.NullReferenceException)
+        catch (System.IndexOutOfRangeException)
         {
             surroundings[index] = null;
         }
@@ -133,6 +141,8 @@ public class Mrowka : MonoBehaviour
         {
             if (array[i] != null)
             {
+                Debug.Log($"index = {i}, array value: {array[i]}, value: {value}");
+
                 if (value <= array[i])
                     return i;
             }
@@ -164,7 +174,7 @@ public class Mrowka : MonoBehaviour
                 break;
             case 4:
                 x = currentPosition.x + 1;
-                y = currentPosition.y + 1;
+                y = currentPosition.y;
                 break;
             case 5:
                 x = currentPosition.x - 1;
@@ -180,8 +190,10 @@ public class Mrowka : MonoBehaviour
                 break;
             default:
                 throw new System.Exception($"Couldnt find tile with index = {index}");
-        }        
+        }
         Vector2Int moveTo = new Vector2Int(x, y);
+        Debug.Log(moveTo);
         rb.MovePosition(map[moveTo.x, moveTo.y].transform.position);
+        //rb.AddForce(moveTo,ForceMode2D.Impulse);
     }
 }
