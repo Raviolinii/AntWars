@@ -8,9 +8,9 @@ public class Pole : MonoBehaviour
     private Surowiec resource;
     private Feromon feromon;
 
-    void start()
+    void Start()
     {
-
+        feromon = gameObject.AddComponent<Feromon>();
     }
 
     public void SpawnResource()
