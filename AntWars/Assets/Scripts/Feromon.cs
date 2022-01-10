@@ -18,7 +18,7 @@ public class Feromon : MonoBehaviour
         BeginFeromonVanishing();
     }
 
-    public int GetFeromonuAmount() => amount;
+    public int GetFeromonAmount() => amount;
     private void SetFeromonAmount(int value) => amount = value;
     public void AddFeromon(int value) => amount += value;
     public void DecreaseFeromonAmount(int value)
