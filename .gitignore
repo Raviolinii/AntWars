@@ -36,6 +36,7 @@ sysinfo.txt
 *.apk
 *.unitypackage
 *.log
+AntWars/Logs/AssetImportWorker0.log
+
 *.log
-*.log
-*.log
+AntWars/Logs/AssetImportWorker0.log
