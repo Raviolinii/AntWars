@@ -27,13 +27,14 @@ public class Mrowka : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         tileDetector = GetComponentInChildren<CircleCollider2D>();
+
         // start of code to comment for tests
-        map = FindObjectOfType<Mapa>().GetMap();
+        /* map = FindObjectOfType<Mapa>().GetMap();
         transform.position = map[spawnPosition.x, spawnPosition.y].transform.position;
-        currentPosition = spawnPosition;
+        currentPosition = spawnPosition; */
 
         // end of that code, uncomment next line
-        //Invoke("TestPositionSet", 4);
+        Invoke("TestPositionSet", 4);
         hasFood = false;
         surroundings = new int?[8];
     }
@@ -54,6 +55,7 @@ public class Mrowka : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.tag);
         if (other.gameObject.CompareTag("Tile"))
         {
             Pole tile = other.GetComponent<Pole>();
