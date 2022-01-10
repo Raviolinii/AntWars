@@ -35,6 +35,8 @@ public class Mrowka : MonoBehaviour
 
         // end of that code, uncomment next line
         Invoke("TestPositionSet", 4);
+        Invoke("FeromonDetection", 5);
+        Invoke("Move", 6);
         hasFood = false;
         surroundings = new int?[8];
     }
@@ -49,7 +51,7 @@ public class Mrowka : MonoBehaviour
     private void TestPositionSet()
     {
         map = FindObjectOfType<Mapa>().GetMap();
-        transform.position = map[(int)spawnPosition.x, (int)spawnPosition.y].transform.position;
+        transform.position = map[spawnPosition.x, spawnPosition.y].transform.position;
         currentPosition = spawnPosition;
     }
 
@@ -98,7 +100,7 @@ public class Mrowka : MonoBehaviour
         {
             surroundings[index] = map[x, y].GetFeromon().GetFeromonAmount();
         }
-        catch (System.IndexOutOfRangeException)
+        catch (System.NullReferenceException)
         {
             surroundings[index] = null;
         }
@@ -142,7 +144,7 @@ public class Mrowka : MonoBehaviour
     {
         int x = -1, y = -1;
         int index = RouletteTileSelection(surroundings);
-        switch (surroundings[index])
+        switch (index)
         {
             case 0:
                 x = currentPosition.x - 1;
@@ -177,8 +179,9 @@ public class Mrowka : MonoBehaviour
                 y = currentPosition.y - 1;
                 break;
             default:
-                throw new System.Exception("Couldnt find tile of that index");
-        }
-        rb.MovePosition(new Vector2(x, y));
+                throw new System.Exception($"Couldnt find tile with index = {index}");
+        }        
+        Vector2Int moveTo = new Vector2Int(x, y);
+        rb.MovePosition(map[moveTo.x, moveTo.y].transform.position);
     }
 }
