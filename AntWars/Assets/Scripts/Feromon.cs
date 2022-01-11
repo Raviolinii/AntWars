@@ -12,7 +12,7 @@ public class Feromon : MonoBehaviour
     void Start()
     {        
         SetFeromonAmount(0);
-        SetVanishingTime(1.5f);
+        SetVanishingTime(5f);
         SetVanishingAmount(1);
 
         BeginFeromonVanishing();
