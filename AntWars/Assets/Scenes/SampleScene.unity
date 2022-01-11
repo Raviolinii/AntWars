@@ -275,7 +275,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7873994736745271587, guid: 0a427d3323acd2344b174f577983c757, type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7873994737294536848, guid: 0a427d3323acd2344b174f577983c757, type: 3}
       propertyPath: m_SortingOrder
@@ -344,6 +344,10 @@ PrefabInstance:
     - target: {fileID: 7873994737294536939, guid: 0a427d3323acd2344b174f577983c757, type: 3}
       propertyPath: m_Name
       value: Ant
+      objectReference: {fileID: 0}
+    - target: {fileID: 7873994737294536939, guid: 0a427d3323acd2344b174f577983c757, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a427d3323acd2344b174f577983c757, type: 3}
