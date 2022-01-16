@@ -12,7 +12,7 @@ public abstract class Mrowka : MonoBehaviour
     protected Rigidbody2D rb;
     protected CircleCollider2D tileDetector;
     protected BoxCollider2D targetDetector;
-    protected Vector2 destination;
+    public Vector2 destination;
     protected float movementSpeed;
     protected int?[] surroundings;
     protected int detectionRadius = 3;
@@ -23,12 +23,11 @@ public abstract class Mrowka : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         tileDetector = GetComponentInChildren<CircleCollider2D>();
-        Physics2D.IgnoreLayerCollision(3,3,true);
 
         // start of code to comment for tests
         
         map = FindObjectOfType<Mapa>();
-        //transform.position = map.GetTileOfIndex(spawnPosition.x, spawnPosition.y).transform.position;
+
         currentPosition = spawnPosition;
         lastPosition = spawnPosition;
 
@@ -36,8 +35,9 @@ public abstract class Mrowka : MonoBehaviour
         int height = map.GetMapHeight();    
 
         // end of that code, uncomment next line
+
         //Invoke("TestPositionSet", 4);
-        FeromonDetection();
+        //FeromonDetection();
         //Invoke("FeromonDetection", 5);
         //Invoke("Move", 6);
 
@@ -88,7 +88,7 @@ public abstract class Mrowka : MonoBehaviour
 
     protected void UpdateDestination()
     {
-        int x = -1, y = -1;
+        int x, y;
         int index = RouletteTileSelection(surroundings);
         switch (index)
         {

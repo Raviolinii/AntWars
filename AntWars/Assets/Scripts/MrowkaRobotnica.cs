@@ -19,6 +19,9 @@ public class MrowkaRobotnica : Mrowka
         goingForFoodMemory = new bool[width, height];
         goingWithFoodMemory = new bool[width, height];
         //Invoke("TestPositionSet", 4);
+        Debug.Log(currentPosition.x + " " + currentPosition.y);
+        FeromonDetection();
+        UpdateDestination();
     }
 
     // Update is called once per frame
