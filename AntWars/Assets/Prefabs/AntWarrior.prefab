@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9053374298747385775}
   - component: {fileID: 9053374298747385774}
   - component: {fileID: 2409064070478400484}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: AntWarrior
   m_TagString: Ant
   m_Icon: {fileID: 0}
@@ -162,6 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2aff2940d76e8947a9a9ec362a7532b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnPosition: {x: 1, y: 1}
 --- !u!1 &9053374299263342107
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,6 +23,7 @@ public abstract class Mrowka : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         tileDetector = GetComponentInChildren<CircleCollider2D>();
+        Physics2D.IgnoreLayerCollision(3,3,true);
 
         // start of code to comment for tests
         
