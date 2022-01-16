@@ -14,6 +14,7 @@ public class MrowkaRobotnica : Mrowka
     {
         base.Start();
         hasFood = false;
+        Invoke("TestPositionSet", 4);
     }
 
     // Update is called once per frame
@@ -28,6 +29,7 @@ public class MrowkaRobotnica : Mrowka
         map = FindObjectOfType<Mapa>();
         transform.position = map.GetTileOfIndex(spawnPosition.x, spawnPosition.y).transform.position;
         currentPosition = spawnPosition;
+        lastPosition = spawnPosition;
 
         int width = map.GetMapWidth();
         int height = map.GetMapHeight();
@@ -38,7 +40,7 @@ public class MrowkaRobotnica : Mrowka
 
     protected override void FeromonDetection()
     {
-        surroundings = map.GetSurroundingWorkerFeromons(currentPosition.x, currentPosition.y);
+        surroundings = map.GetSurroundingWorkerFeromons(currentPosition.x, currentPosition.y, lastPosition);
     }
 
     protected void OnTriggerEnter2D(Collider2D other)
@@ -46,6 +48,7 @@ public class MrowkaRobotnica : Mrowka
         if (other.gameObject.CompareTag("Tile"))
         {
             Pole tile = other.GetComponent<Pole>();
+            lastPosition = currentPosition;
             currentPosition = tile.GetTileIndex();
 
             Debug.Log(tile.GetWorkerFeromon().GetFeromonAmount());

@@ -7,6 +7,7 @@ public abstract class Mrowka : MonoBehaviour
 {
     protected Vector2Int spawnPosition = new Vector2Int(1, 1);
     protected Vector2Int currentPosition;
+    protected Vector2Int lastPosition;
     protected Mapa map;
     protected Rigidbody2D rb;
     protected CircleCollider2D tileDetector;
@@ -28,6 +29,7 @@ public abstract class Mrowka : MonoBehaviour
         map = FindObjectOfType<Mapa>();
         transform.position = map.GetTileOfIndex(spawnPosition.x, spawnPosition.y).transform.position;
         currentPosition = spawnPosition;
+        lastPosition = spawnPosition;
 
         int width = map.GetMapWidth();
         int height = map.GetMapHeight();
@@ -128,6 +130,7 @@ public abstract class Mrowka : MonoBehaviour
                 throw new System.Exception($"Couldnt find tile with index = {index}");
         }
         Vector2Int moveTo = new Vector2Int(x, y);
+        Debug.Log(moveTo);
         destination = map.GetTileOfIndex(moveTo.x, moveTo.y).transform.position;
     }
 
