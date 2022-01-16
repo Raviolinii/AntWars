@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Mapa : MonoBehaviour
 {
-    private int width = 2;
-    private int height = 2;
+    private int width = 5;
+    private int height = 5;
     public Pole tile;
     private Pole[,] map;
 
