@@ -10,6 +10,7 @@ public class MrowkaWojownik : Mrowka
     protected override void Start()
     {
         base.Start();
+        Invoke("TestPositionSet", 4);
     }
 
     // Update is called once per frame
@@ -23,6 +24,7 @@ public class MrowkaWojownik : Mrowka
         map = FindObjectOfType<Mapa>();
         transform.position = map.GetTileOfIndex(spawnPosition.x, spawnPosition.y).transform.position;
         currentPosition = spawnPosition;
+        lastPosition = spawnPosition;
 
         int width = map.GetMapWidth();
         int height = map.GetMapHeight();
@@ -35,6 +37,7 @@ public class MrowkaWojownik : Mrowka
         if (other.gameObject.CompareTag("Tile"))
         {
             Pole tile = other.GetComponent<Pole>();
+            lastPosition = currentPosition;
             currentPosition = tile.GetTileIndex();
 
             Debug.Log(tile.GetWarriorFeromon().GetFeromonAmount());
@@ -48,7 +51,7 @@ public class MrowkaWojownik : Mrowka
 
     protected override void FeromonDetection()
     {
-        surroundings = map.GetSurroundingWorkerFeromons(currentPosition.x, currentPosition.y);
+        surroundings = map.GetSurroundingWarriorFeromons(currentPosition.x, currentPosition.y, lastPosition);
     }
 
     protected override void LeaveFeromon(int x, int y)

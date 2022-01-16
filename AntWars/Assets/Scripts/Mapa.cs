@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Mapa : MonoBehaviour
 {
-    private int width = 20;
-    private int height = 20;
+    private int width = 2;
+    private int height = 2;
     public Pole tile;
     private Pole[,] map;
 
@@ -45,26 +45,28 @@ public class Mapa : MonoBehaviour
     }
     public Pole[,] GetMap() => map;
 
-    public int?[] GetSurroundingWorkerFeromons(int x, int y)
+    public int?[] GetSurroundingWorkerFeromons(int x, int y, Vector2Int lastPosition)
     {
         int?[] feromonsArray = new int?[8];
 
-        feromonsArray[0] = WorkerFeromonOrNullAsign(x - 1, y + 1);
-        feromonsArray[1] = WorkerFeromonOrNullAsign(x, y + 1);
-        feromonsArray[2] = WorkerFeromonOrNullAsign(x + 1, y + 1);
+        feromonsArray[0] = WorkerFeromonOrNullAsign(x - 1, y + 1, lastPosition);
+        feromonsArray[1] = WorkerFeromonOrNullAsign(x, y + 1, lastPosition);
+        feromonsArray[2] = WorkerFeromonOrNullAsign(x + 1, y + 1, lastPosition);
 
-        feromonsArray[3] = WorkerFeromonOrNullAsign(x - 1, y);
-        feromonsArray[4] = WorkerFeromonOrNullAsign(x + 1, y);
+        feromonsArray[3] = WorkerFeromonOrNullAsign(x - 1, y, lastPosition);
+        feromonsArray[4] = WorkerFeromonOrNullAsign(x + 1, y, lastPosition);
 
-        feromonsArray[5] = WorkerFeromonOrNullAsign(x - 1, y - 1);
-        feromonsArray[6] = WorkerFeromonOrNullAsign(x, y - 1);
-        feromonsArray[7] = WorkerFeromonOrNullAsign(x + 1, y - 1);
+        feromonsArray[5] = WorkerFeromonOrNullAsign(x - 1, y - 1, lastPosition);
+        feromonsArray[6] = WorkerFeromonOrNullAsign(x, y - 1, lastPosition);
+        feromonsArray[7] = WorkerFeromonOrNullAsign(x + 1, y - 1, lastPosition);
 
         return feromonsArray;
     }
 
-    private int? WorkerFeromonOrNullAsign(int x, int y)
+    private int? WorkerFeromonOrNullAsign(int x, int y, Vector2Int lastPosition)
     {
+        if (x == lastPosition.x && y == lastPosition.y)
+            return null;            
         try
         {
             return map[x, y].GetWorkerFeromon().GetFeromonAmount();
@@ -75,26 +77,28 @@ public class Mapa : MonoBehaviour
         }
     }
 
-    public int?[] GetSurroundingWarriorFeromons(int x, int y)
+    public int?[] GetSurroundingWarriorFeromons(int x, int y, Vector2Int lastPosition)
     {
         int?[] feromonsArray = new int?[8];
 
-        feromonsArray[0] = WarriorFeromonOrNullAsign(x - 1, y + 1);
-        feromonsArray[1] = WarriorFeromonOrNullAsign(x, y + 1);
-        feromonsArray[2] = WarriorFeromonOrNullAsign(x + 1, y + 1);
+        feromonsArray[0] = WarriorFeromonOrNullAsign(x - 1, y + 1, lastPosition);
+        feromonsArray[1] = WarriorFeromonOrNullAsign(x, y + 1, lastPosition);
+        feromonsArray[2] = WarriorFeromonOrNullAsign(x + 1, y + 1, lastPosition);
 
-        feromonsArray[3] = WarriorFeromonOrNullAsign(x - 1, y);
-        feromonsArray[4] = WarriorFeromonOrNullAsign(x + 1, y);
+        feromonsArray[3] = WarriorFeromonOrNullAsign(x - 1, y, lastPosition);
+        feromonsArray[4] = WarriorFeromonOrNullAsign(x + 1, y, lastPosition);
 
-        feromonsArray[5] = WarriorFeromonOrNullAsign(x - 1, y - 1);
-        feromonsArray[6] = WarriorFeromonOrNullAsign(x, y - 1);
-        feromonsArray[7] = WarriorFeromonOrNullAsign(x + 1, y - 1);
+        feromonsArray[5] = WarriorFeromonOrNullAsign(x - 1, y - 1, lastPosition);
+        feromonsArray[6] = WarriorFeromonOrNullAsign(x, y - 1, lastPosition);
+        feromonsArray[7] = WarriorFeromonOrNullAsign(x + 1, y - 1, lastPosition);
 
         return feromonsArray;
     }
 
-    private int? WarriorFeromonOrNullAsign(int x, int y)
+    private int? WarriorFeromonOrNullAsign(int x, int y, Vector2Int lastPosition)
     {
+        if (x == lastPosition.x && y == lastPosition.y)
+            return null; 
         try
         {
             return map[x, y].GetWarriorFeromon().GetFeromonAmount();
