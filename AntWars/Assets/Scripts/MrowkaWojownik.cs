@@ -9,13 +9,13 @@ public class MrowkaWojownik : Mrowka
     // Start is called before the first frame update
     protected override void Start()
     {
-
+        base.Start();
     }
 
     // Update is called once per frame
     protected override void Update()
     {
-
+        base.Update();
     }
 
     protected void TestPositionSet()
@@ -30,13 +30,30 @@ public class MrowkaWojownik : Mrowka
         goingForEnemy = new bool[width, height];
     }
 
+    protected void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Tile"))
+        {
+            Pole tile = other.GetComponent<Pole>();
+            currentPosition = tile.GetTileIndex();
+
+            Debug.Log(tile.GetWarriorFeromon().GetFeromonAmount());
+
+            LeaveFeromon(currentPosition.x, currentPosition.y);
+
+            FeromonDetection();
+            UpdateDestination();
+        }
+    }
+
     protected override void FeromonDetection()
     {
-        throw new System.NotImplementedException();
+        surroundings = map.GetSurroundingWorkerFeromons(currentPosition.x, currentPosition.y);
     }
 
     protected override void LeaveFeromon(int x, int y)
     {
-        throw new System.NotImplementedException();
+        map.LeaveWarriorFeromonOn(x, y, 40);
+        goingForEnemy[x, y] = true;
     }
 }

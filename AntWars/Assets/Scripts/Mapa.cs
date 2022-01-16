@@ -45,35 +45,66 @@ public class Mapa : MonoBehaviour
     }
     public Pole[,] GetMap() => map;
 
-    public int?[] GetSurroundingFeromons(int x, int y)
+    public int?[] GetSurroundingWorkerFeromons(int x, int y)
     {
         int?[] feromonsArray = new int?[8];
 
-        feromonsArray[0] = FeromonOrNullAsign(x - 1, y + 1);
-        feromonsArray[1] = FeromonOrNullAsign(x, y + 1);
-        feromonsArray[2] = FeromonOrNullAsign(x + 1, y + 1);
+        feromonsArray[0] = WorkerFeromonOrNullAsign(x - 1, y + 1);
+        feromonsArray[1] = WorkerFeromonOrNullAsign(x, y + 1);
+        feromonsArray[2] = WorkerFeromonOrNullAsign(x + 1, y + 1);
 
-        feromonsArray[3] = FeromonOrNullAsign(x - 1, y);
-        feromonsArray[4] = FeromonOrNullAsign(x + 1, y);
+        feromonsArray[3] = WorkerFeromonOrNullAsign(x - 1, y);
+        feromonsArray[4] = WorkerFeromonOrNullAsign(x + 1, y);
 
-        feromonsArray[5] = FeromonOrNullAsign(x - 1, y - 1);
-        feromonsArray[6] = FeromonOrNullAsign(x, y - 1);
-        feromonsArray[7] = FeromonOrNullAsign(x + 1, y - 1);
+        feromonsArray[5] = WorkerFeromonOrNullAsign(x - 1, y - 1);
+        feromonsArray[6] = WorkerFeromonOrNullAsign(x, y - 1);
+        feromonsArray[7] = WorkerFeromonOrNullAsign(x + 1, y - 1);
 
         return feromonsArray;
     }
 
-    private int? FeromonOrNullAsign(int x, int y)
+    private int? WorkerFeromonOrNullAsign(int x, int y)
     {
         try
         {
-            return map[x, y].GetFeromon().GetFeromonAmount();        
+            return map[x, y].GetWorkerFeromon().GetFeromonAmount();
         }
         catch (System.IndexOutOfRangeException)
         {
             return null;
         }
     }
+
+    public int?[] GetSurroundingWarriorFeromons(int x, int y)
+    {
+        int?[] feromonsArray = new int?[8];
+
+        feromonsArray[0] = WarriorFeromonOrNullAsign(x - 1, y + 1);
+        feromonsArray[1] = WarriorFeromonOrNullAsign(x, y + 1);
+        feromonsArray[2] = WarriorFeromonOrNullAsign(x + 1, y + 1);
+
+        feromonsArray[3] = WarriorFeromonOrNullAsign(x - 1, y);
+        feromonsArray[4] = WarriorFeromonOrNullAsign(x + 1, y);
+
+        feromonsArray[5] = WarriorFeromonOrNullAsign(x - 1, y - 1);
+        feromonsArray[6] = WarriorFeromonOrNullAsign(x, y - 1);
+        feromonsArray[7] = WarriorFeromonOrNullAsign(x + 1, y - 1);
+
+        return feromonsArray;
+    }
+
+    private int? WarriorFeromonOrNullAsign(int x, int y)
+    {
+        try
+        {
+            return map[x, y].GetWarriorFeromon().GetFeromonAmount();
+        }
+        catch (System.IndexOutOfRangeException)
+        {
+            return null;
+        }
+    }
+
 
     public int GetMapWidth() => width;
     public int GetMapHeight() => height;
@@ -83,8 +114,12 @@ public class Mapa : MonoBehaviour
         return map[x, y];
     }
 
-    public void LeaveFeromonOn(int x, int y, int value)
+    public void LeaveWorkerFeromonOn(int x, int y, int value)
     {
-        map[x, y].GetFeromon().AddFeromon(value);
+        map[x, y].GetWorkerFeromon().AddFeromon(value);
+    }
+    public void LeaveWarriorFeromonOn(int x, int y, int value)
+    {
+        map[x, y].GetWarriorFeromon().AddFeromon(value);
     }
 }

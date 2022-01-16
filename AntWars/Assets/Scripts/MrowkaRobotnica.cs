@@ -19,7 +19,7 @@ public class MrowkaRobotnica : Mrowka
     // Update is called once per frame
     protected override void Update()
     {
-        base.Move();
+        base.Update();
     }
 
     // To test ant not spawned during the game
@@ -38,17 +38,17 @@ public class MrowkaRobotnica : Mrowka
 
     protected override void FeromonDetection()
     {
-        surroundings = map.GetSurroundingFeromons(currentPosition.x, currentPosition.y);
+        surroundings = map.GetSurroundingWorkerFeromons(currentPosition.x, currentPosition.y);
     }
 
-        protected void OnTriggerEnter2D(Collider2D other)
+    protected void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Tile"))
         {
             Pole tile = other.GetComponent<Pole>();
             currentPosition = tile.GetTileIndex();
 
-            Debug.Log(tile.GetFeromon().GetFeromonAmount());
+            Debug.Log(tile.GetWorkerFeromon().GetFeromonAmount());
 
             LeaveFeromon(currentPosition.x, currentPosition.y);
 
@@ -61,12 +61,12 @@ public class MrowkaRobotnica : Mrowka
     {
         if (hasFood && !goingWithFoodMemory[x, y])
         {
-            map.LeaveFeromonOn(x, y, 40);
+            map.LeaveWorkerFeromonOn(x, y, 40);
             goingWithFoodMemory[x, y] = true;
         }
         else if (!hasFood && !goingForFoodMemory[x, y])
         {
-            map.LeaveFeromonOn(x, y, 20);
+            map.LeaveWorkerFeromonOn(x, y, 20);
             goingForFoodMemory[x, y] = true;
         }
     }
