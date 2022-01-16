@@ -3,27 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Mrowka : MonoBehaviour
+public abstract class Mrowka : MonoBehaviour
 {
-    private Vector2Int spawnPosition = new Vector2Int(1, 1);
-    private Vector2Int currentPosition;
-    private bool[,] goingForFoodMemory;
-    private bool[,] goingWithFoodMemory;
-    private Mapa map;
-    private Rigidbody2D rb;
-    private CircleCollider2D tileDetector;
-    private BoxCollider2D targetDetector;
-
-    private Vector2 destination;
-    private float movementSpeed;
-
-    private bool hasFood;
-    private int?[] surroundings;
-
-    private int detectionRadius = 3;
+    protected Vector2Int spawnPosition = new Vector2Int(1, 1);
+    protected Vector2Int currentPosition;
+    protected Mapa map;
+    protected Rigidbody2D rb;
+    protected CircleCollider2D tileDetector;
+    protected BoxCollider2D targetDetector;
+    protected Vector2 destination;
+    protected float movementSpeed;
+    protected int?[] surroundings;
+    protected int detectionRadius = 3;
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
 
         rb = GetComponent<Rigidbody2D>();
@@ -48,56 +42,18 @@ public class Mrowka : MonoBehaviour
         //Invoke("Move", 6);
 
         destination = new Vector2();
-        hasFood = false;
         surroundings = new int?[8];
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
-        if (destination != null)
-        {
-            movementSpeed = (1 / Vector2.Distance(transform.position, destination)) * Time.deltaTime;
-            transform.position = Vector2.Lerp(transform.position, destination, movementSpeed);
-        }
+        Move();
     }
 
-    // To test ant not spawned during the game
-    private void TestPositionSet()
-    {
-        map = FindObjectOfType<Mapa>();
-        transform.position = map.GetTileOfIndex(spawnPosition.x, spawnPosition.y).transform.position;
-        currentPosition = spawnPosition;
+    protected abstract void FeromonDetection();
 
-        int width = map.GetMapWidth();
-        int height = map.GetMapHeight();
-
-        goingForFoodMemory = new bool[width, height];
-        goingWithFoodMemory = new bool[width, height];
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Tile"))
-        {
-            Pole tile = other.GetComponent<Pole>();
-            currentPosition = tile.GetTileIndex();
-
-            Debug.Log(tile.GetFeromon().GetFeromonAmount());
-
-            LeaveFeromon(currentPosition.x, currentPosition.y);
-
-            FeromonDetection();
-            UpdateDestination();
-        }
-    }
-    private void FeromonDetection()
-    {
-        surroundings = map.GetSurroundingFeromons(currentPosition.x, currentPosition.y);
-    }
-
-
-    private int RouletteTileSelection(int?[] values)
+    protected int RouletteTileSelection(int?[] values)
     {
         int index;
         int sum = 0;
@@ -117,14 +73,12 @@ public class Mrowka : MonoBehaviour
         return index;
     }
 
-    private int FindIndex(int?[] array, int value)
+    protected int FindIndex(int?[] array, int value)
     {
         for (int i = 0; i < array.Length; i++)
         {
             if (array[i] != null)
             {
-                //Debug.Log($"index = {i}, array value: {array[i]}, value: {value}");
-
                 if (value <= array[i])
                     return i;
             }
@@ -132,7 +86,7 @@ public class Mrowka : MonoBehaviour
         throw new System.Exception("Couldnt find index of element from feromons array");
     }
 
-    private void UpdateDestination()
+    protected void UpdateDestination()
     {
         int x = -1, y = -1;
         int index = RouletteTileSelection(surroundings);
@@ -174,21 +128,17 @@ public class Mrowka : MonoBehaviour
                 throw new System.Exception($"Couldnt find tile with index = {index}");
         }
         Vector2Int moveTo = new Vector2Int(x, y);
-        //Debug.Log(moveTo);
         destination = map.GetTileOfIndex(moveTo.x, moveTo.y).transform.position;
     }
 
-    private void LeaveFeromon(int x, int y)
+    protected abstract void LeaveFeromon(int x, int y);
+
+    protected void Move()
     {
-        if (hasFood && !goingWithFoodMemory[x, y])
+        if (destination != null)
         {
-            map.LeaveFeromonOn(x, y, 40);
-            goingWithFoodMemory[x, y] = true;
-        }
-        else if (!hasFood && !goingForFoodMemory[x, y])
-        {
-            map.LeaveFeromonOn(x, y, 20);
-            goingForFoodMemory[x, y] = true;
+            movementSpeed = (1 / Vector2.Distance(transform.position, destination)) * Time.deltaTime;
+            transform.position = Vector2.Lerp(transform.position, destination, movementSpeed);
         }
     }
 }
