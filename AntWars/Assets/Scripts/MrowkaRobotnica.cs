@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MrowkaRobotnica : Mrowka
 {
-
     protected bool[,] goingForFoodMemory;
     protected bool[,] goingWithFoodMemory;
     protected bool hasFood;
@@ -14,7 +13,12 @@ public class MrowkaRobotnica : Mrowka
     {
         base.Start();
         hasFood = false;
-        Invoke("TestPositionSet", 4);
+        
+        int width = map.GetMapWidth();
+        int height = map.GetMapHeight();
+        goingForFoodMemory = new bool[width, height];
+        goingWithFoodMemory = new bool[width, height];
+        //Invoke("TestPositionSet", 4);
     }
 
     // Update is called once per frame
@@ -51,7 +55,7 @@ public class MrowkaRobotnica : Mrowka
             lastPosition = currentPosition;
             currentPosition = tile.GetTileIndex();
 
-            Debug.Log(tile.GetWorkerFeromon().GetFeromonAmount());
+            //Debug.Log(tile.GetWorkerFeromon().GetFeromonAmount());
 
             LeaveFeromon(currentPosition.x, currentPosition.y);
 

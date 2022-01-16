@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class Mrowka : MonoBehaviour
 {
-    protected Vector2Int spawnPosition = new Vector2Int(1, 1);
+    public Vector2Int spawnPosition = new Vector2Int(1, 1);
     protected Vector2Int currentPosition;
     protected Vector2Int lastPosition;
     protected Mapa map;
@@ -25,21 +25,18 @@ public abstract class Mrowka : MonoBehaviour
         tileDetector = GetComponentInChildren<CircleCollider2D>();
 
         // start of code to comment for tests
-        /* 
+        
         map = FindObjectOfType<Mapa>();
-        transform.position = map.GetTileOfIndex(spawnPosition.x, spawnPosition.y).transform.position;
+        //transform.position = map.GetTileOfIndex(spawnPosition.x, spawnPosition.y).transform.position;
         currentPosition = spawnPosition;
         lastPosition = spawnPosition;
 
         int width = map.GetMapWidth();
-        int height = map.GetMapHeight();
-
-        goingForFoodMemory = new bool[width, height];
-        goingWithFoodMemory = new bool[width, height]; 
-        */
+        int height = map.GetMapHeight();    
 
         // end of that code, uncomment next line
-        Invoke("TestPositionSet", 4);
+        //Invoke("TestPositionSet", 4);
+        FeromonDetection();
         //Invoke("FeromonDetection", 5);
         //Invoke("Move", 6);
 
@@ -130,7 +127,7 @@ public abstract class Mrowka : MonoBehaviour
                 throw new System.Exception($"Couldnt find tile with index = {index}");
         }
         Vector2Int moveTo = new Vector2Int(x, y);
-        Debug.Log(moveTo);
+        //Debug.Log(moveTo);
         destination = map.GetTileOfIndex(moveTo.x, moveTo.y).transform.position;
     }
 
