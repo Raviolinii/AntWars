@@ -15,7 +15,6 @@ public abstract class Mrowka : MonoBehaviour
     public Vector2 destination;
     protected float movementSpeed;
     protected int?[] surroundings;
-    protected int detectionRadius = 3;
 
     // Start is called before the first frame update
     protected virtual void Start()
