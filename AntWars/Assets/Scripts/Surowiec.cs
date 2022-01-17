@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Surowiec : MonoBehaviour
 {
-    private float extractionTime;
+    private float extractionTime = 2f;
     private IEnumerator extractCoroutine;
-    private bool isUnderExtraction;
-    private int resourceAmmount;
+    private bool isUnderExtraction = false;
+    private int resourceAmmount = 100;
 
     // dodac zmienna z robotnica, ktora zbiera zasob
 
