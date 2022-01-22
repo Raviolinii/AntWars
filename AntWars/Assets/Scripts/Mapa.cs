@@ -65,10 +65,11 @@ public class Mapa : MonoBehaviour
 
     private int? WorkerFeromonOrNullAsign(int x, int y, Vector2Int lastPosition)
     {
+        //Debug.Log(x + " " + y);
         if (x == lastPosition.x && y == lastPosition.y)
             return null;            
         try
-        {
+        {            
             return map[x, y].GetWorkerFeromon().GetFeromonAmount();
         }
         catch (System.IndexOutOfRangeException)

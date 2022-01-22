@@ -28,7 +28,6 @@ public class PlayerManager : MonoBehaviour
         Invoke("SpawnWorker", 2);
         Invoke("SpawnWorker", 2);
         Invoke("SpawnWorker", 2);
-        Invoke("SpawnWorker", 2);
     }
 
     // Update is called once per frame
