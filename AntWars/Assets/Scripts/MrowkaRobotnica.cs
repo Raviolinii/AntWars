@@ -25,21 +25,13 @@ public class MrowkaRobotnica : Mrowka
         foodAndAnthillDetector = GetComponentInChildren<BoxCollider2D>();
 
         //Invoke("TestPositionSet", 4);
-        FeromonDetection();
-        UpdateDestination();
     }
 
     // Update is called once per frame
     protected override void Update()
     {
         base.Update();
-        if (foodScript != null)
-        {
-            if (transform.position == foodScript.transform.position)
-                BeginExtraction();
-        }
-        else if (foodScript == null && foodOrHillDetected && foodAmount == 0)
-            FinishExtraction();
+        LookForFoor();
     }
 
     // To test ant not spawned during the game
@@ -79,8 +71,6 @@ public class MrowkaRobotnica : Mrowka
             lastPosition = currentPosition;
             currentPosition = tile.GetTileIndex();
 
-            //Debug.Log(tile.GetWorkerFeromon().GetFeromonAmount());
-
             LeaveFeromon(currentPosition.x, currentPosition.y);
 
             FeromonDetection();
@@ -101,6 +91,17 @@ public class MrowkaRobotnica : Mrowka
             map.LeaveWorkerFeromonOn(x, y, 20);
             goingForFoodMemory[x, y] = true;
         }
+    }
+
+    protected void LookForFoor()
+    {
+        if (foodScript != null)
+        {
+            if (transform.position == foodScript.transform.position)
+                BeginExtraction();
+        }
+        else if (foodScript == null && foodOrHillDetected && foodAmount == 0)
+            FinishExtraction();
     }
 
     protected void BeginExtraction()

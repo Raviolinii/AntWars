@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class Mrowka : MonoBehaviour
 {
-    public Vector2Int spawnPosition = new Vector2Int(1, 1);
+    public Vector2Int spawnPosition;
     protected Vector2Int currentPosition;
     protected Vector2Int lastPosition;
     protected Mapa map;
@@ -30,9 +30,6 @@ public abstract class Mrowka : MonoBehaviour
         currentPosition = spawnPosition;
         lastPosition = spawnPosition;
 
-        int width = map.GetMapWidth();
-        int height = map.GetMapHeight();    
-
         // end of that code, uncomment next line
 
         //Invoke("TestPositionSet", 4);
@@ -40,7 +37,7 @@ public abstract class Mrowka : MonoBehaviour
         //Invoke("FeromonDetection", 5);
         //Invoke("Move", 6);
 
-        destination = new Vector2();
+        //destination = new Vector2();
         surroundings = new int?[8];
     }
 
