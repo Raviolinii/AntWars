@@ -7,6 +7,7 @@ public class Feromon : MonoBehaviour
     private int amount;
     private float vanishingTime;
     private int vanishingAmount;
+    private int maxAmount = 60;
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +21,13 @@ public class Feromon : MonoBehaviour
 
     public int GetFeromonAmount() => amount;
     private void SetFeromonAmount(int value) => amount = value;
-    public void AddFeromon(int value) => amount += value;
+    public void AddFeromon(int value) 
+    {
+        if (value + amount < maxAmount)
+            amount += value;
+        else
+            amount = maxAmount;
+    }
     public void DecreaseFeromonAmount(int value)
     {
         if (amount > value)

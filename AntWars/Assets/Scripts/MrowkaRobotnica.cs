@@ -97,12 +97,12 @@ public class MrowkaRobotnica : Mrowka
     {
         if (foodAmount != 0 && !goingWithFoodMemory[x, y])
         {
-            map.LeaveWorkerFeromonOn(x, y, 40);
+            map.LeaveWorkerFeromonOn(x, y, 30);
             goingWithFoodMemory[x, y] = true;
         }
         else if (foodAmount == 0 && !goingForFoodMemory[x, y])
         {
-            map.LeaveWorkerFeromonOn(x, y, 20);
+            map.LeaveWorkerFeromonOn(x, y, 10);
             goingForFoodMemory[x, y] = true;
         }
     }
