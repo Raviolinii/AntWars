@@ -11,14 +11,14 @@ public class Feromon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {        
-        SetFeromonAmount(5);
-        SetVanishingTime(1.5f);
+        SetFeromonAmount(0);
+        SetVanishingTime(5f);
         SetVanishingAmount(1);
 
         BeginFeromonVanishing();
     }
 
-    public int GetFeromonuAmount() => amount;
+    public int GetFeromonAmount() => amount;
     private void SetFeromonAmount(int value) => amount = value;
     public void AddFeromon(int value) => amount += value;
     public void DecreaseFeromonAmount(int value)
