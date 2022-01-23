@@ -161,7 +161,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 332191508}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0944286, y: 0.5533692, z: -0.45407543}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -281,6 +281,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   workerType: {fileID: 7873994737294536939, guid: 0a427d3323acd2344b174f577983c757, type: 3}
   warriorType: {fileID: 9053374298747385809, guid: cc4cc22b0bb30314493920e6eadf6361, type: 3}
+  anthill: {fileID: 9014185970413837947, guid: 96585a2deb1221440a3618d679326b7d, type: 3}
 --- !u!4 &897730039
 Transform:
   m_ObjectHideFlags: 0
