@@ -6,15 +6,17 @@ TagManager:
   tags:
   - Tile
   - Ant
+  - Food
+  - Anthill
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ant
   - Water
   - UI
   - Map
-  - 
+  - FoodAndAnthill
   - 
   - 
   - 

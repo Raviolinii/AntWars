@@ -1,113 +1,55 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 
-public class Mrowka : MonoBehaviour
+public abstract class Mrowka : MonoBehaviour
 {
-    private Vector2Int spawnPosition = new Vector2Int(1, 1);
-    private Vector2Int currentPosition;
-    private Pole[,] map;
-    private Rigidbody2D rb;
-    private CircleCollider2D tileDetector;
-    private BoxCollider2D targetDetector;
-
-    private bool hasFood;
-
-    // radius wont be changed, script will remain commented
-    //private int surroundingsRadius;
-    private int?[] surroundings;
-
-    private int detectionRadius = 3;
+    public Vector2Int spawnPosition;
+    protected Vector2Int currentPosition;
+    protected Vector2Int lastPosition;
+    protected Mapa map;
+    protected Rigidbody2D rb;
+    protected CircleCollider2D tileDetector;
+    protected BoxCollider2D targetDetector;
+    public Vector2 destination;
+    protected float movementSpeed;
+    protected int?[] surroundings;
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
 
         rb = GetComponent<Rigidbody2D>();
         tileDetector = GetComponentInChildren<CircleCollider2D>();
 
         // start of code to comment for tests
-        /* map = FindObjectOfType<Mapa>().GetMap();
-        transform.position = map[spawnPosition.x, spawnPosition.y].transform.position;
-        currentPosition = spawnPosition; */
+        
+        map = FindObjectOfType<Mapa>();
+
+        currentPosition = spawnPosition;
+        lastPosition = spawnPosition;
 
         // end of that code, uncomment next line
-        Invoke("TestPositionSet", 4);
-        Invoke("FeromonDetection", 5);
-        Invoke("Move", 6);
-        hasFood = false;
+
+        //Invoke("TestPositionSet", 4);
+        //FeromonDetection();
+        //Invoke("FeromonDetection", 5);
+        //Invoke("Move", 6);
+
+        //destination = new Vector2();
         surroundings = new int?[8];
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
-
+        Move();
     }
 
-    // To test ant not spawned during the game
-    private void TestPositionSet()
-    {
-        map = FindObjectOfType<Mapa>().GetMap();
-        transform.position = map[spawnPosition.x, spawnPosition.y].transform.position;
-        currentPosition = spawnPosition;
-    }
+    protected abstract void FeromonDetection();
 
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log(other.tag);
-        if (other.gameObject.CompareTag("Tile"))
-        {
-            Pole tile = other.GetComponent<Pole>();
-            currentPosition = tile.GetTileIndex();
-
-            FeromonDetection();
-        }
-    }
-
-    private void FeromonDetection()
-    {
-        // radius wont be changed, script will remain commented
-        //surroundings = new int [surroundingsRadius * 8];
-
-        if (!hasFood)
-        {
-            // getting feromon amount of surrounding tiles            
-            FeromonOrNullAsign(0, currentPosition.x - 1, currentPosition.y + 1);
-            FeromonOrNullAsign(1, currentPosition.x, currentPosition.y + 1);
-            FeromonOrNullAsign(2, currentPosition.x + 1, currentPosition.y + 1);
-
-            FeromonOrNullAsign(3, currentPosition.x - 1, currentPosition.y);
-            FeromonOrNullAsign(4, currentPosition.x + 1, currentPosition.y);
-
-            FeromonOrNullAsign(5, currentPosition.x - 1, currentPosition.y - 1);
-            FeromonOrNullAsign(6, currentPosition.x, currentPosition.y - 1);
-            FeromonOrNullAsign(7, currentPosition.x + 1, currentPosition.y - 1);
-
-        }
-        else
-        {
-            return;
-        }
-    }
-
-    // if ant is on the edge or int the corner it will asingn null
-    private void FeromonOrNullAsign(int index, int x, int y)
-    {
-        try
-        {
-            surroundings[index] = map[x, y].GetFeromon().GetFeromonAmount();
-        }
-        catch (System.NullReferenceException)
-        {
-            surroundings[index] = null;
-        }
-    }
-
-
-    private int RouletteTileSelection(int?[] values)
+    protected int RouletteTileSelection(int?[] values)
     {
         int index;
         int sum = 0;
@@ -116,7 +58,7 @@ public class Mrowka : MonoBehaviour
         {
             if (values[i] != null)
             {
-                sum += (int)values[i] + 1;
+                sum += (int)values[i] + 5;
                 values[i] = sum;
             }
         }
@@ -127,7 +69,7 @@ public class Mrowka : MonoBehaviour
         return index;
     }
 
-    private int FindIndex(int?[] array, int value)
+    protected int FindIndex(int?[] array, int value)
     {
         for (int i = 0; i < array.Length; i++)
         {
@@ -140,9 +82,9 @@ public class Mrowka : MonoBehaviour
         throw new System.Exception("Couldnt find index of element from feromons array");
     }
 
-    private void Move()
+    protected void UpdateDestination()
     {
-        int x = -1, y = -1;
+        int x, y;
         int index = RouletteTileSelection(surroundings);
         switch (index)
         {
@@ -164,7 +106,7 @@ public class Mrowka : MonoBehaviour
                 break;
             case 4:
                 x = currentPosition.x + 1;
-                y = currentPosition.y + 1;
+                y = currentPosition.y;
                 break;
             case 5:
                 x = currentPosition.x - 1;
@@ -180,8 +122,20 @@ public class Mrowka : MonoBehaviour
                 break;
             default:
                 throw new System.Exception($"Couldnt find tile with index = {index}");
-        }        
+        }
         Vector2Int moveTo = new Vector2Int(x, y);
-        rb.MovePosition(map[moveTo.x, moveTo.y].transform.position);
+        //Debug.Log(moveTo);
+        destination = map.GetTileOfIndex(moveTo.x, moveTo.y).transform.position;
+    }
+
+    protected abstract void LeaveFeromon(int x, int y);
+
+    protected void Move()
+    {
+        if (destination != null)
+        {
+            movementSpeed = (1 / Vector2.Distance(transform.position, destination)) * Time.deltaTime;
+            transform.position = Vector2.Lerp(transform.position, destination, movementSpeed);
+        }
     }
 }

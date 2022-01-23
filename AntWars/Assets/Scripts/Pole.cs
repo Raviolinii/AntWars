@@ -5,18 +5,25 @@ using UnityEngine;
 public class Pole : MonoBehaviour
 {
     private Vector2Int tileIndex;
-    private Surowiec resource;
-    private Feromon feromon;
+    public GameObject food;
+    private Surowiec resourceScript;
+    private Feromon workerFeromon;
+    private Feromon warriorFeromon;
 
     void Start()
     {
-        feromon = gameObject.AddComponent<Feromon>();
+        workerFeromon = gameObject.AddComponent<Feromon>();
+        warriorFeromon = gameObject.AddComponent<Feromon>();
+        SpawnResource();
     }
 
     public void SpawnResource()
     {
-        if (resource != null)
-            Instantiate(resource, gameObject.transform.position, resource.transform.rotation);
+        if (food != null)
+        {
+            Instantiate(food, gameObject.transform.position, food.transform.rotation);
+            resourceScript = food.GetComponent<Surowiec>();
+        }
     }
 
     public Vector2Int GetTileIndex() => tileIndex;
@@ -24,6 +31,7 @@ public class Pole : MonoBehaviour
     {
         tileIndex = new Vector2Int(i, j);
     }
-    public Feromon GetFeromon() => feromon;
+    public Feromon GetWorkerFeromon() => workerFeromon;
+    public Feromon GetWarriorFeromon() => warriorFeromon;
 
 }
