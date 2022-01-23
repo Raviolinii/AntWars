@@ -58,7 +58,7 @@ public abstract class Mrowka : MonoBehaviour
         {
             if (values[i] != null)
             {
-                sum += (int)values[i] + 5;
+                sum += (int)values[i] + 2;
                 values[i] = sum;
             }
         }
