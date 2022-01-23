@@ -11,6 +11,7 @@ public class PlayerManager : MonoBehaviour
     public GameObject workerType;
     public GameObject warriorType;
     private Mapa map;
+    public Mrowisko anthill;
 
     // Start is called before the first frame update
     void Start()
@@ -24,10 +25,10 @@ public class PlayerManager : MonoBehaviour
         Invoke("InitializeMap", 1);
 
         Invoke("SpawnWorker", 2);
-        Invoke("SpawnWorker", 2);
-        Invoke("SpawnWorker", 2);
-        Invoke("SpawnWorker", 2);
-        Invoke("SpawnWorker", 2);
+        //Invoke("SpawnWorker", 2);
+        //Invoke("SpawnWorker", 2);
+        //Invoke("SpawnWorker", 2);
+        //Invoke("SpawnWorker", 2);
     }
 
     // Update is called once per frame

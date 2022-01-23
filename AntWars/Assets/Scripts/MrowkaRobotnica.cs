@@ -11,6 +11,7 @@ public class MrowkaRobotnica : Mrowka
     protected BoxCollider2D foodAndAnthillDetector;
     protected bool foodOrHillDetected = false;
     protected Surowiec foodScript;
+    protected Mrowisko anthillScript;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -32,6 +33,13 @@ public class MrowkaRobotnica : Mrowka
     {
         base.Update();
         LookForFoor();
+        if (anthillScript != null)
+        {
+            if (transform.position == anthillScript.transform.position)
+            {
+                StoreFood();
+            }
+        }
     }
 
     // To test ant not spawned during the game
@@ -61,6 +69,12 @@ public class MrowkaRobotnica : Mrowka
             foodOrHillDetected = true;
             destination = other.transform.position;
             foodScript = other.GetComponent<Surowiec>();
+        }
+        if(other.CompareTag("Anthill") && foodAmount != 0)
+        {
+            foodOrHillDetected = true;
+            destination = other.transform.position;
+            anthillScript = other.gameObject.GetComponent<Mrowisko>();
         }
     }
     protected void OnTriggerEnter2D(Collider2D other)
@@ -104,10 +118,16 @@ public class MrowkaRobotnica : Mrowka
             FinishExtraction();
     }
 
-    protected void BeginExtraction()
+    protected void StoreFood()
     {
-        foodScript.Extract(this);
+        anthillScript.StoreFood(foodAmount);
+        foodAmount = 0;
+        foodOrHillDetected = false;
+        anthillScript = null;
+        ReverseDirection();
     }
+
+    protected void BeginExtraction() => foodScript.Extract(this);
 
     protected void ReverseDirection() => destination = map.GetTileOfIndex(lastPosition.x, lastPosition.y).transform.position;
 
@@ -119,8 +139,8 @@ public class MrowkaRobotnica : Mrowka
 
     public void FinishExtraction()
     {
-        ReverseDirection();
         foodScript = null;
         foodOrHillDetected = false;
+        ReverseDirection();
     }
 }
