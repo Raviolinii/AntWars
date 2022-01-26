@@ -24,7 +24,7 @@ public abstract class Mrowka : MonoBehaviour
         tileDetector = GetComponentInChildren<CircleCollider2D>();
 
         // start of code to comment for tests
-        
+
         map = FindObjectOfType<Mapa>();
 
         currentPosition = spawnPosition;
@@ -134,8 +134,19 @@ public abstract class Mrowka : MonoBehaviour
     {
         if (destination != null)
         {
+            Rotate();
             movementSpeed = (1 / Vector2.Distance(transform.position, destination)) * Time.deltaTime;
             transform.position = Vector2.Lerp(transform.position, destination, movementSpeed);
         }
+    }
+
+    protected void Rotate()
+    {
+        Vector3 norTar = (new Vector3(destination.x, destination.y, 0) - transform.position).normalized;
+        float angle = Mathf.Atan2(norTar.y, norTar.x) * Mathf.Rad2Deg;
+
+        Quaternion rotation = new Quaternion();
+        rotation.eulerAngles = new Vector3(0, 0, angle - 135);
+        transform.rotation = rotation;
     }
 }
