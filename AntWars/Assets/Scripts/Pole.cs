@@ -6,6 +6,8 @@ public class Pole : MonoBehaviour
 {
     private Vector2Int tileIndex;
     public GameObject food;
+    public GameObject anthill;
+    private Mrowisko anthillScript;
     private Surowiec resourceScript;
     private Feromon workerFeromon;
     private Feromon warriorFeromon;
@@ -25,6 +27,14 @@ public class Pole : MonoBehaviour
             resourceScript = food.GetComponent<Surowiec>();
         }
     }
+    /* public void SpawnAnthill()
+    {
+        if (anthill != null)
+        {
+            Instantiate(anthill, gameObject.transform.position, food.transform.rotation);
+            anthillScript = food.GetComponent<Mrowisko>();
+        }
+    } */
 
     public Vector2Int GetTileIndex() => tileIndex;
     public void SetTileIndex(int i, int j)

@@ -153,6 +153,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tile: {fileID: 62864598826193418, guid: f3ff134e3d1aa06449084640e70c6a70, type: 3}
+  food: {fileID: 8702134870614765531, guid: fbf2fc5f05bd9bc4cbf99e81e5cdd1c1, type: 3}
+  anthill: {fileID: 2600833270107462888, guid: 96585a2deb1221440a3618d679326b7d, type: 3}
 --- !u!4 &332191510
 Transform:
   m_ObjectHideFlags: 0

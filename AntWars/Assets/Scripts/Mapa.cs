@@ -7,6 +7,8 @@ public class Mapa : MonoBehaviour
     private int width = 5;
     private int height = 5;
     public Pole tile;
+    public GameObject food;
+    public GameObject anthill;
     private Pole[,] map;
 
     // Start is called before the first frame update
