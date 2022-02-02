@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Mapa : MonoBehaviour
 {
-    private int width = 5;
-    private int height = 5;
+    private int width = 15;
+    private int height = 15;
     public Pole tile;
     public GameObject food;
     public GameObject anthill;
@@ -15,6 +16,7 @@ public class Mapa : MonoBehaviour
     void Start()
     {
         InstantiateMap();
+        SpawnAnthill(2,0);
     }
 
     // Update is called once per frame
@@ -36,6 +38,7 @@ public class Mapa : MonoBehaviour
             for (int j = 0; j < height; j++)
             {
                 // obliczanie pozycji dla kazdego pola, j jest na minusie, zeby pola szly w dol, zeby pole [0,0] bylo w lewym gornym rogu
+                // [i,j] i = kolumny, j = wiersze
                 positionX = tile.transform.localScale.x * i;
                 positionY = tile.transform.localScale.y * -j;
                 newPosition = new Vector3(positionX, positionY, 0);
@@ -45,6 +48,19 @@ public class Mapa : MonoBehaviour
             }
         }
     }
+
+    private void SpawnFood(int i, int j)
+    {
+        map[i,j].food = food;
+        map[i,j].SpawnResource();
+    }
+
+    private void SpawnAnthill(int i, int j)
+    {
+        map[i,j].anthill = anthill;
+        map[i,j].SpawnAnthill();
+    }
+
     public Pole[,] GetMap() => map;
 
     public int?[] GetSurroundingWorkerFeromons(int x, int y, Vector2Int lastPosition)

@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   food: {fileID: 0}
-  anthill: {fileID: 2600833270107462888, guid: 96585a2deb1221440a3618d679326b7d, type: 3}
+  anthill: {fileID: 0}
 --- !u!61 &5294006528267979643
 BoxCollider2D:
   m_ObjectHideFlags: 0
