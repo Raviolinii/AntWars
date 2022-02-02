@@ -11,11 +11,13 @@ public class Mapa : MonoBehaviour
     public GameObject food;
     public GameObject anthill;
     private Pole[,] map;
+    private Vector2Int anthillPosition;
 
     // Start is called before the first frame update
     void Start()
     {
         InstantiateMap();
+        StartCoroutine(SpawnFoodAfter());
     }
 
     // Update is called once per frame
@@ -48,16 +50,11 @@ public class Mapa : MonoBehaviour
         }
     }
 
-    private void SpawnFood(int i, int j)
-    {
-        map[i,j].food = food;
-        map[i,j].SpawnResource();
-    }
-
     public void SpawnAnthill(int i, int j)
     {
         map[i,j].anthill = anthill;
         map[i,j].SpawnAnthill();
+        anthillPosition = new Vector2Int(i,j);
     }
 
     public Pole[,] GetMap() => map;
@@ -143,5 +140,31 @@ public class Mapa : MonoBehaviour
     public void LeaveWarriorFeromonOn(int x, int y, int value)
     {
         map[x, y].GetWarriorFeromon().AddFeromon(value);
+    }
+
+    public void SpawnFoodRandomly(int amount)
+    {
+        for (int i = 0; i < amount; i++)
+            SpawnFoodAt(GetRandomPosition());
+    }
+
+    public void SpawnFoodAt(Vector2Int position)
+    {
+        map[position.x, position.y].food = food;
+        map[position.x, position.y].SpawnResource();
+
+    }
+    public Vector2Int GetRandomPosition()
+    {
+        var result = new Vector2Int(Random.Range(0, width), Random.Range(0, height));
+        if (result.x == anthillPosition.x && result.y == anthillPosition.y)
+            result = GetRandomPosition();
+        return result;
+    }
+
+    private IEnumerator SpawnFoodAfter()
+    {
+        yield return new WaitForSeconds(1.5f);
+        SpawnFoodRandomly(15); 
     }
 }
