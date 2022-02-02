@@ -5,12 +5,14 @@ using UnityEngine;
 public class Mrowisko : MonoBehaviour
 {
     private int startingFood = 0;
-    private int foodStored;
+    public int storedFood;
+    private PlayerManager gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        foodStored = startingFood;
+        storedFood = startingFood;
+        gameManager = FindObjectOfType<PlayerManager>();
     }
 
     // Update is called once per frame
@@ -19,13 +21,17 @@ public class Mrowisko : MonoBehaviour
         
     }
 
-    public void StoreFood(int value) => foodStored += value;
-    public int GetStoredFoodAmount() => foodStored;
+    public void StoreFood(int value)
+    {
+        storedFood += value;
+        gameManager.CheckPrices();
+    }
+    public int GetStoredFoodAmount() => storedFood;
     public bool SpendFood(int value)
     {
-        if (value <= foodStored)
+        if (value <= storedFood)
         {
-            foodStored -= value;
+            storedFood -= value;
             return true;
         }
         return false;

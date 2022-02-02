@@ -130,14 +130,14 @@ public class MrowkaRobotnica : Mrowka
     //protected void ReverseDirection() => destination = map.GetTileOfIndex(lastPosition.x, lastPosition.y).transform.position;
     protected void ReverseDirection()
     {
-        Debug.Log(lastPosition);
+        //Debug.Log(lastPosition);
         destination = map.GetTileOfIndex(lastPosition.x, lastPosition.y).transform.position;        
     }
 
     public void TakeFood(int value)
     {
         foodAmount = value;
-        Debug.Log(foodAmount);
+        //Debug.Log(foodAmount);
     }
 
     public void FinishExtraction()

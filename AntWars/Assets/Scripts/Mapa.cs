@@ -23,7 +23,7 @@ public class Mapa : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
     private void InstantiateMap()
@@ -50,11 +50,12 @@ public class Mapa : MonoBehaviour
         }
     }
 
-    public void SpawnAnthill(int i, int j)
+    public GameObject SpawnAnthill(int i, int j)
     {
         map[i,j].anthill = anthill;
-        map[i,j].SpawnAnthill();
+        var result = map[i,j].SpawnAnthill();
         anthillPosition = new Vector2Int(i,j);
+        return result;
     }
 
     public Pole[,] GetMap() => map;

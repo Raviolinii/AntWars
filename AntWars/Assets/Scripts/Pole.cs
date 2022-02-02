@@ -27,13 +27,15 @@ public class Pole : MonoBehaviour
             resourceScript = food.GetComponent<Surowiec>();
         }
     }
-    public void SpawnAnthill()
+    public GameObject SpawnAnthill()
     {
         if (anthill != null)
         {
-            Instantiate(anthill, gameObject.transform.position, anthill.transform.rotation);
+            var result = Instantiate(anthill, gameObject.transform.position, anthill.transform.rotation);
             anthillScript = anthill.GetComponent<Mrowisko>();
+            return result;
         }
+        return null;
     }
 
     public void AssignFood(GameObject foodPrefab) => food = foodPrefab;

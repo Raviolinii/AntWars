@@ -19,8 +19,12 @@ public class PlayerManager : MonoBehaviour
     public GameObject mapPrefab;
     private Mapa map1;
     private Mapa map2;
-    public Mrowisko anthill1;
-    public Mrowisko anthill2;
+    public GameObject anthill1;
+    public Mrowisko anthill1Script;
+    public GameObject anthill2;
+    public Mrowisko anthill2Script;
+    private int foodForAntWorker1 = 20;
+    private int foodForAntWorker2 = 20;
 
     // Start is called before the first frame update
     void Start()
@@ -30,8 +34,8 @@ public class PlayerManager : MonoBehaviour
         workers1 = new List<MrowkaRobotnica>();
         workers2 = new List<MrowkaRobotnica>();
         //warriors1 = new List<MrowkaWojownik>();
-        spawnIndex1 = new Vector2Int(Random.Range(0, 8), Random.Range(0,4));
-        spawnIndex2 = new Vector2Int(Random.Range(0, 8), Random.Range(0,4));
+        spawnIndex1 = new Vector2Int(Random.Range(0, 8), Random.Range(0, 4));
+        spawnIndex2 = new Vector2Int(Random.Range(0, 8), Random.Range(0, 4));
 
         var workerScript1 = workerType1.GetComponent<MrowkaRobotnica>();
         workerScript1.spawnPosition = spawnIndex1;
@@ -41,7 +45,6 @@ public class PlayerManager : MonoBehaviour
 
         Invoke("SpawnAnthills", 1);
 
-        //Invoke("AssignMapsToAnts", 1);
         Invoke("InitializeSpawnPositions", 1);
 
         Invoke("SpawnWorker1", 2);
@@ -55,14 +58,8 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
     }
-
-    /* private void AssignMapsToAnts()
-    {
-        workerType1.GetComponent<Mrowka>().map = map1;
-        workerType2.GetComponent<Mrowka>().map = map2;
-    } */
 
     private void InitializeMaps()
     {
@@ -94,7 +91,32 @@ public class PlayerManager : MonoBehaviour
 
     private void SpawnAnthills()
     {
-        map1.SpawnAnthill(spawnIndex1.x, spawnIndex1.y);
-        map2.SpawnAnthill(spawnIndex2.x, spawnIndex2.y);
+        anthill1 = map1.SpawnAnthill(spawnIndex1.x, spawnIndex1.y);
+        anthill2 = map2.SpawnAnthill(spawnIndex2.x, spawnIndex2.y);
+        anthill1Script = anthill1.GetComponent<Mrowisko>();
+        anthill2Script = anthill2.GetComponent<Mrowisko>();
+    }
+
+    public void CheckPrices()
+    {
+        Debug.Log(anthill1Script.GetStoredFoodAmount());
+        if (anthill1Script.GetStoredFoodAmount() >= foodForAntWorker1)
+            HatchAnAntWorker1();
+        if (anthill2Script.GetStoredFoodAmount() >= foodForAntWorker2)
+            HatchAnAntWorker2();
+    }
+
+
+    private void HatchAnAntWorker1()
+    {
+        anthill1Script.SpendFood(foodForAntWorker1);
+        foodForAntWorker1 += 30;
+        SpawnWorker1();
+    }
+    private void HatchAnAntWorker2()
+    {
+        anthill2Script.SpendFood(foodForAntWorker2);
+        foodForAntWorker2 += 30;
+        SpawnWorker2();
     }
 }
