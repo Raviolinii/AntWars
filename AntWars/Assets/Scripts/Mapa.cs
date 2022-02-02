@@ -12,12 +12,15 @@ public class Mapa : MonoBehaviour
     public GameObject anthill;
     private Pole[,] map;
     private Vector2Int anthillPosition;
+    private int foodRespawnDelay = 10;
+    private int foodRespawnInterval = 10;
 
     // Start is called before the first frame update
     void Start()
     {
         InstantiateMap();
         StartCoroutine(SpawnFoodAfter());
+        InvokeRepeating("SpawnFoodRepeating", foodRespawnDelay, foodRespawnInterval);
     }
 
     // Update is called once per frame
@@ -151,6 +154,8 @@ public class Mapa : MonoBehaviour
 
     public void SpawnFoodAt(Vector2Int position)
     {
+        if (map[position.x, position.y].food != null)
+            return;
         map[position.x, position.y].food = food;
         map[position.x, position.y].SpawnResource();
 
@@ -162,6 +167,8 @@ public class Mapa : MonoBehaviour
             result = GetRandomPosition();
         return result;
     }
+
+    private void SpawnFoodRepeating() => SpawnFoodAt(GetRandomPosition());
 
     private IEnumerator SpawnFoodAfter()
     {

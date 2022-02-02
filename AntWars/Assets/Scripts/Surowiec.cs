@@ -8,7 +8,7 @@ public class Surowiec : MonoBehaviour
     private IEnumerator extractCoroutine;
     private bool isUnderExtraction = false;
     private int resourceAmmount = 100;
-    private int resourceExtractionAmmount = 20;
+    private int resourceExtractionAmmount = 10;
     private MrowkaRobotnica extractingAnt;
 
     // dodac zmienna z robotnica, ktora zbiera zasob
