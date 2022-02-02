@@ -12,7 +12,7 @@ public abstract class Mrowka : MonoBehaviour
     protected Rigidbody2D rb;
     protected CircleCollider2D tileDetector;
     protected BoxCollider2D targetDetector;
-    public Vector2 destination;
+    protected Vector2 destination;
     protected float movementSpeed;
     protected int?[] surroundings;
 

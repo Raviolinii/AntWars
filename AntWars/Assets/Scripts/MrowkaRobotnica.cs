@@ -6,7 +6,6 @@ public class MrowkaRobotnica : Mrowka
 {
     protected bool[,] goingForFoodMemory;
     protected bool[,] goingWithFoodMemory;
-    //protected bool hasFood = false;
     protected int foodAmount = 0;
     protected BoxCollider2D foodAndAnthillDetector;
     protected bool foodOrHillDetected = false;
@@ -69,7 +68,7 @@ public class MrowkaRobotnica : Mrowka
             destination = other.transform.position;
             foodScript = other.GetComponent<Surowiec>();
         }
-        if(other.CompareTag("Anthill") && foodAmount != 0)
+        if(other.CompareTag("Anthill") && foodAmount != 0 && foodOrHillDetected == false)
         {
             foodOrHillDetected = true;
             destination = other.transform.position;
@@ -128,7 +127,12 @@ public class MrowkaRobotnica : Mrowka
 
     protected void BeginExtraction() => foodScript.Extract(this);
 
-    protected void ReverseDirection() => destination = map.GetTileOfIndex(lastPosition.x, lastPosition.y).transform.position;
+    //protected void ReverseDirection() => destination = map.GetTileOfIndex(lastPosition.x, lastPosition.y).transform.position;
+    protected void ReverseDirection()
+    {
+        Debug.Log(lastPosition);
+        destination = map.GetTileOfIndex(lastPosition.x, lastPosition.y).transform.position;        
+    }
 
     public void TakeFood(int value)
     {
@@ -139,7 +143,7 @@ public class MrowkaRobotnica : Mrowka
     public void FinishExtraction()
     {
         foodScript = null;
-        foodOrHillDetected = false;
+        foodOrHillDetected = false;        
         ReverseDirection();
     }
 }

@@ -53,6 +53,7 @@ public class Surowiec : MonoBehaviour
 
     IEnumerator ExtractCoroutine()
     {
+        Debug.Log("Waiting");
         yield return new WaitForSeconds(extractionTime);
         ExtractionFinished();
     }
