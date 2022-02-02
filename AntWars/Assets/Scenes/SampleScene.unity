@@ -240,8 +240,10 @@ MonoBehaviour:
   workerType2: {fileID: 7873994737294536939, guid: 0a427d3323acd2344b174f577983c757, type: 3}
   warriorType2: {fileID: 9053374298747385809, guid: cc4cc22b0bb30314493920e6eadf6361, type: 3}
   mapPrefab: {fileID: 6445964872901943697, guid: cddc87a05242c644288dc76bd82522b9, type: 3}
-  anthill1: {fileID: 9014185970413837947, guid: 96585a2deb1221440a3618d679326b7d, type: 3}
-  anthill2: {fileID: 9014185970413837947, guid: 96585a2deb1221440a3618d679326b7d, type: 3}
+  anthill1: {fileID: 0}
+  anthill1Script: {fileID: 0}
+  anthill2: {fileID: 0}
+  anthill2Script: {fileID: 0}
 --- !u!4 &897730039
 Transform:
   m_ObjectHideFlags: 0

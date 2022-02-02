@@ -99,7 +99,6 @@ public class PlayerManager : MonoBehaviour
 
     public void CheckPrices()
     {
-        Debug.Log(anthill1Script.GetStoredFoodAmount());
         if (anthill1Script.GetStoredFoodAmount() >= foodForAntWorker1)
             HatchAnAntWorker1();
         if (anthill2Script.GetStoredFoodAmount() >= foodForAntWorker2)
