@@ -16,7 +16,6 @@ public class Mapa : MonoBehaviour
     void Start()
     {
         InstantiateMap();
-        SpawnAnthill(2,0);
     }
 
     // Update is called once per frame
@@ -29,8 +28,8 @@ public class Mapa : MonoBehaviour
     {
         map = new Pole[width, height];
 
-        float positionX = 0;
-        float positionY = 0;
+        float positionX;
+        float positionY;
         Vector3 newPosition;
 
         for (int i = 0; i < width; i++)
@@ -39,8 +38,8 @@ public class Mapa : MonoBehaviour
             {
                 // obliczanie pozycji dla kazdego pola, j jest na minusie, zeby pola szly w dol, zeby pole [0,0] bylo w lewym gornym rogu
                 // [i,j] i = kolumny, j = wiersze
-                positionX = tile.transform.localScale.x * i;
-                positionY = tile.transform.localScale.y * -j;
+                positionX = transform.position.x + tile.transform.localScale.x * i;
+                positionY = transform.position.y + tile.transform.localScale.y * -j;
                 newPosition = new Vector3(positionX, positionY, 0);
 
                 map[i, j] = Instantiate(tile, newPosition, tile.transform.rotation);
@@ -55,7 +54,7 @@ public class Mapa : MonoBehaviour
         map[i,j].SpawnResource();
     }
 
-    private void SpawnAnthill(int i, int j)
+    public void SpawnAnthill(int i, int j)
     {
         map[i,j].anthill = anthill;
         map[i,j].SpawnAnthill();

@@ -8,7 +8,7 @@ public abstract class Mrowka : MonoBehaviour
     public Vector2Int spawnPosition;
     protected Vector2Int currentPosition;
     protected Vector2Int lastPosition;
-    protected Mapa map;
+    public Mapa map;
     protected Rigidbody2D rb;
     protected CircleCollider2D tileDetector;
     protected BoxCollider2D targetDetector;
@@ -25,7 +25,7 @@ public abstract class Mrowka : MonoBehaviour
 
         // start of code to comment for tests
 
-        map = FindObjectOfType<Mapa>();
+        //map = FindObjectOfType<Mapa>();
 
         currentPosition = spawnPosition;
         lastPosition = spawnPosition;
@@ -40,6 +40,8 @@ public abstract class Mrowka : MonoBehaviour
         //destination = new Vector2();
         surroundings = new int?[8];
     }
+
+    //public void SetMap(Mapa map) => this.map = map;
 
     // Update is called once per frame
     protected virtual void Update()

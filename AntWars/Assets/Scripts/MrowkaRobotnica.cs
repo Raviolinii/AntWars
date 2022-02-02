@@ -45,7 +45,6 @@ public class MrowkaRobotnica : Mrowka
     // To test ant not spawned during the game
     protected void TestPositionSet()
     {
-        map = FindObjectOfType<Mapa>();
         transform.position = map.GetTileOfIndex(spawnPosition.x, spawnPosition.y).transform.position;
         currentPosition = spawnPosition;
         lastPosition = spawnPosition;

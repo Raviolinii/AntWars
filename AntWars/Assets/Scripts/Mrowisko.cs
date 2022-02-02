@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Mrowisko : MonoBehaviour
 {
-
     private int startingFood = 0;
     private int foodStored;
 

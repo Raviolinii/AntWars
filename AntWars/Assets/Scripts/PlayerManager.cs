@@ -4,27 +4,48 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    private List<MrowkaRobotnica> workers;
-    private List<MrowkaWojownik> warriors;
-    Vector2Int spawnIndex;
-    Vector2 spawnPosition;
-    public GameObject workerType;
-    public GameObject warriorType;
-    private Mapa map;
-    public Mrowisko anthill;
+    private List<MrowkaRobotnica> workers1;
+    private List<MrowkaWojownik> warriors1;
+    private List<MrowkaRobotnica> workers2;
+    private List<MrowkaWojownik> warriors2;
+    Vector2Int spawnIndex1;
+    Vector2Int spawnIndex2;
+    Vector2 spawnPosition1;
+    Vector2 spawnPosition2;
+    public GameObject workerType1;
+    public GameObject warriorType1;
+    public GameObject workerType2;
+    public GameObject warriorType2;
+    public GameObject mapPrefab;
+    private Mapa map1;
+    private Mapa map2;
+    public Mrowisko anthill1;
+    public Mrowisko anthill2;
 
     // Start is called before the first frame update
     void Start()
     {
-        workers = new List<MrowkaRobotnica>();
-        warriors = new List<MrowkaWojownik>();
-        spawnIndex = new Vector2Int(1, 1);
-        var workerScript = workerType.GetComponent<MrowkaRobotnica>();
-        workerScript.spawnPosition = spawnIndex;
+        InitializeMaps();
 
-        Invoke("InitializeMap", 1);
+        workers1 = new List<MrowkaRobotnica>();
+        workers2 = new List<MrowkaRobotnica>();
+        //warriors1 = new List<MrowkaWojownik>();
+        spawnIndex1 = new Vector2Int(Random.Range(0, 8), Random.Range(0,4));
+        spawnIndex2 = new Vector2Int(Random.Range(0, 8), Random.Range(0,4));
 
-        Invoke("SpawnWorker", 2);
+        var workerScript1 = workerType1.GetComponent<MrowkaRobotnica>();
+        workerScript1.spawnPosition = spawnIndex1;
+
+        var workerScript2 = workerType2.GetComponent<MrowkaRobotnica>();
+        workerScript2.spawnPosition = spawnIndex2;
+
+        Invoke("SpawnAnthills", 1);
+
+        //Invoke("AssignMapsToAnts", 1);
+        Invoke("InitializeSpawnPositions", 1);
+
+        Invoke("SpawnWorker1", 2);
+        Invoke("SpawnWorker2", 2);
         //Invoke("SpawnWorker", 2);
         //Invoke("SpawnWorker", 2);
         //Invoke("SpawnWorker", 2);
@@ -37,17 +58,43 @@ public class PlayerManager : MonoBehaviour
 
     }
 
-    private void InitializeMap()
+    /* private void AssignMapsToAnts()
     {
-        map = FindObjectOfType<Mapa>();
-        spawnPosition = map.GetTileOfIndex(spawnIndex.x, spawnIndex.y).transform.position;
+        workerType1.GetComponent<Mrowka>().map = map1;
+        workerType2.GetComponent<Mrowka>().map = map2;
+    } */
+
+    private void InitializeMaps()
+    {
+        map1 = Instantiate(mapPrefab, new Vector3(0, 0, 0), mapPrefab.transform.rotation).GetComponent<Mapa>();
+        map2 = Instantiate(mapPrefab, new Vector3(24, 0, 0), mapPrefab.transform.rotation).GetComponent<Mapa>();
+    }
+    private void InitializeSpawnPositions()
+    {
+        spawnPosition1 = map1.GetTileOfIndex(spawnIndex1.x, spawnIndex1.y).transform.position;
+        spawnPosition2 = map2.GetTileOfIndex(spawnIndex2.x, spawnIndex2.y).transform.position;
     }
 
-    public void SpawnWorker()
+    public void SpawnWorker1()
     {
-        Vector3 position = new Vector3(spawnPosition.x, spawnPosition.y);
-        GameObject instantiated = Instantiate(workerType, position, workerType.transform.rotation);
+        Vector3 position = new Vector3(spawnPosition1.x, spawnPosition1.y);
+        workerType1.GetComponent<Mrowka>().map = map1;
+        GameObject instantiated = Instantiate(workerType1, position, workerType1.transform.rotation);
         MrowkaRobotnica toAdd = instantiated.GetComponent<MrowkaRobotnica>();
-        workers.Add(toAdd);
+        workers1.Add(toAdd);
+    }
+    public void SpawnWorker2()
+    {
+        Vector3 position = new Vector3(spawnPosition2.x, spawnPosition2.y);
+        workerType2.GetComponent<Mrowka>().map = map2;
+        GameObject instantiated = Instantiate(workerType2, position, workerType2.transform.rotation);
+        MrowkaRobotnica toAdd = instantiated.GetComponent<MrowkaRobotnica>();
+        workers2.Add(toAdd);
+    }
+
+    private void SpawnAnthills()
+    {
+        map1.SpawnAnthill(spawnIndex1.x, spawnIndex1.y);
+        map2.SpawnAnthill(spawnIndex2.x, spawnIndex2.y);
     }
 }
